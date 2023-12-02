@@ -28,13 +28,12 @@ public class Day1 {
                         clear = false;
                     }
                 }
-            }
-            if (clear) {
-                buffer = "" + line.charAt(i);
+                if (clear) {
+                    buffer = "" + line.charAt(i);
+                }
             }
         }
-        System.out.println(result);
-        return result;
+        throw new RuntimeException("No digit found in line " + line);
     }
     public void run() {
         int sum = 0;
