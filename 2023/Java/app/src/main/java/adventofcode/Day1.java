@@ -14,7 +14,6 @@ public class Day1 {
             }
         }
         String buffer = "";
-        byte result = 0;
         for (int i = 0; i < line.length(); i++) {
             boolean clear = true;
             if (Character.isDigit(line.charAt(i))) {
