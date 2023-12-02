@@ -8,21 +8,14 @@ def process_digits(line, inverted):
         line = line[::-1]
         for i, d in enumerate(digits):
             digits[i] = d[::-1]
-    buffer = ""
     result = 0
     for i, c in enumerate(line):
-        clear = True
         if c.isnumeric():
             return int(c)
         else:
-            buffer += c
             for j, d in enumerate(digits):
-                if d == buffer:
+                if line[i:].startswith(d):
                     return j + 1
-                elif d.startswith(buffer):
-                    clear = False
-            if clear:
-                buffer = "" + c
     raise ValueError("No digit found in line " + line)
 
 def run(data):

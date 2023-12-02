@@ -13,22 +13,14 @@ public class Day1 {
                 digits[i] = new StringBuilder(digits[i]).reverse().toString();
             }
         }
-        String buffer = "";
         for (int i = 0; i < line.length(); i++) {
-            boolean clear = true;
             if (Character.isDigit(line.charAt(i))) {
                 return line.charAt(i) - '0';
             } else {
-                buffer = buffer + line.charAt(i);
                 for (int j = 0; j < 9; j++) {
-                    if (digits[j].equals(buffer)) {
+                    if (line.substring(i).startsWith(digits[j])) {
                         return j + 1;
-                    } else if (digits[j].startsWith(buffer)) {
-                        clear = false;
                     }
-                }
-                if (clear) {
-                    buffer = "" + line.charAt(i);
                 }
             }
         }
