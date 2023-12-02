@@ -3,16 +3,16 @@ import re
 def run(data):
     limited = 0
     power = 0
+
     for i, line in enumerate(data):
         line = line.split(":")[1]
         line = line.split(";")
-        for j, turn in enumerate(line):
-            line[j] = turn.split(",")
 
         rgb_min = [0, 0, 0]
         impossible = False
 
-        for j, turn in enumerate(line):
+        for turn in line:
+            turn = turn.split(",")
             for cubes in turn:
                 n = int(cubes.split()[0])
 
