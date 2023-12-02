@@ -5,27 +5,6 @@ public class Day1 {
     public Day1(String data) {
         this.data = data.split("\n");
     }
-    private int processDigits(String line, boolean inverted) {
-        String[] digits = new String[]{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-        if (inverted) {
-            line = new StringBuilder(line).reverse().toString();
-            for (int i = 0; i < 9; i++) {
-                digits[i] = new StringBuilder(digits[i]).reverse().toString();
-            }
-        }
-        for (int i = 0; i < line.length(); i++) {
-            if (Character.isDigit(line.charAt(i))) {
-                return line.charAt(i) - '0';
-            } else {
-                for (int j = 0; j < 9; j++) {
-                    if (line.substring(i).startsWith(digits[j])) {
-                        return j + 1;
-                    }
-                }
-            }
-        }
-        throw new RuntimeException("No digit found in line " + line);
-    }
     public void run() {
         int sum = 0;
         for (String line: this.data) {
@@ -37,10 +16,25 @@ public class Day1 {
         System.out.println("Part 1: " + sum);
 
         sum = 0;
+        String[] digits = new String[]{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
         for (String line: this.data) {
-            int result = processDigits(line, true);
-            result += 10 * processDigits(line, false);
-            sum += result;
+            String result = "";
+            for (int i = 0; i < line.length(); i++) {
+                if (Character.isDigit(line.charAt(i))) {
+                    result = result + line.charAt(i);
+                    continue;
+                }
+                for (int j = 0; j < digits.length; j++) {
+                    if (line.substring(i).startsWith(digits[j])) {
+                        result = result + (j + 1);
+                        break;
+                    }
+                }
+            }
+
+            if (result.length() != 0) {
+                sum += Integer.parseInt(result.charAt(0) + "" + result.charAt(result.length() - 1));
+            }
         }
         System.out.println("Part 2: " + sum);
     }

@@ -2,22 +2,6 @@
 
 import re
 
-def process_digits(line, inverted):
-    digits = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-    if inverted:
-        line = line[::-1]
-        for i, d in enumerate(digits):
-            digits[i] = d[::-1]
-    result = 0
-    for i, c in enumerate(line):
-        if c.isnumeric():
-            return int(c)
-        else:
-            for j, d in enumerate(digits):
-                if line[i:].startswith(d):
-                    return j + 1
-    raise ValueError("No digit found in line " + line)
-
 def run(data):
     sum = 0
     for line in data:
@@ -27,9 +11,19 @@ def run(data):
     print(f"Part 1: {sum}")
 
     sum = 0
+    digits = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     for line in data:
-        result = 10 * process_digits(line, False) + process_digits(line, True)
-        sum += result
+        result = ""
+        for i, c in enumerate(line):
+            if c.isnumeric():
+                result += c
+                continue
+            for j, digit in enumerate(digits):
+                if line[i:].startswith(digit):
+                    result += str(j + 1)
+                    break
+        if len(result) != 0:
+            sum += int(result[0] + result[-1])
     print(f"Part 2: {sum}")
 
 if __name__ == '__main__':
