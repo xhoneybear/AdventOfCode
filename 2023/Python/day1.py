@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import re
 
 def run(data):
@@ -25,8 +23,3 @@ def run(data):
         if len(result) != 0:
             sum += int(result[0] + result[-1])
     print(f"Part 2: {sum}")
-
-if __name__ == '__main__':
-    with open("../input/input_1.txt", "r") as f:
-        data = f.readlines()
-    run(data)
