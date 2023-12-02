@@ -5,6 +5,37 @@ public class Day1 {
     public Day1(String data) {
         this.data = data.split("\n");
     }
+    private int processDigits(String line, boolean inverted) {
+        String[] digits = new String[]{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+        if (inverted) {
+            line = new StringBuilder(line).reverse().toString();
+            for (int i = 0; i < 9; i++) {
+                digits[i] = new StringBuilder(digits[i]).reverse().toString();
+            }
+        }
+        String buffer = "";
+        byte result = 0;
+        for (int i = 0; i < line.length(); i++) {
+            boolean clear = true;
+            if (Character.isDigit(line.charAt(i))) {
+                return line.charAt(i) - '0';
+            } else {
+                buffer = buffer + line.charAt(i);
+                for (int j = 0; j < 9; j++) {
+                    if (digits[j].equals(buffer)) {
+                        return j + 1;
+                    } else if (digits[j].startsWith(buffer)) {
+                        clear = false;
+                    }
+                }
+            }
+            if (clear) {
+                buffer = "" + line.charAt(i);
+            }
+        }
+        System.out.println(result);
+        return result;
+    }
     public void run() {
         int sum = 0;
         for (String line: this.data) {
@@ -17,33 +48,9 @@ public class Day1 {
 
         sum = 0;
         for (String line: this.data) {
-            String[] digits = new String[]{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-            StringBuilder sb = new StringBuilder();
-            StringBuilder buffer = new StringBuilder();
-            for (int i = 0; i < line.length(); i++) {
-                boolean clear = true;
-                if (Character.isDigit(line.charAt(i))) {
-                    sb.append(line.charAt(i));
-                } else {
-                    buffer.append(line.charAt(i));
-                    for (int j = 0; j < 9; j++) {
-                        if (digits[j].equals(buffer.toString())) {
-                            sb.append(j + 1);
-                            buffer = new StringBuilder();
-                            clear = false;
-                            break;
-                        } else if (digits[j].startsWith(buffer.toString())) {
-                            clear = false;
-                        }
-                    }
-                }
-                if (clear) {
-                    buffer = new StringBuilder();
-                    buffer.append(line.charAt(i));
-                }
-            }
-            String result = sb.toString();
-            sum += Integer.parseInt(result.charAt(0) + "" + result.charAt(result.length() - 1));
+            int result = processDigits(line, true);
+            result += 10 * processDigits(line, false);
+            sum += result;
         }
         System.out.println("Part 2: " + sum);
     }
