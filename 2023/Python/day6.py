@@ -1,7 +1,7 @@
 from math import ceil
 
-def to_int(data):
-    return int(data)
+def to_int(n):
+    return int(n)
 
 def find_bound(mid, bound, off, beat):
     if bound * (mid - bound) > beat:

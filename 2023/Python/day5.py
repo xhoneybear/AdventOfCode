@@ -1,3 +1,6 @@
+def to_int(n):
+    return int(n)
+
 def parse(data):
     seeds = data[0].split(": ")[1].split()
     for i, seed in enumerate(seeds):
@@ -10,11 +13,7 @@ def parse(data):
         if not line:
             pass
         elif line[0].isdigit():
-            maps[i].append(line.split())
-
-            for j, n in enumerate(maps[i][-1]):
-                maps[i][-1][j] = int(n)
-
+            maps[i].append(list(map(to_int, line.split())))
         else:
             maps.append([])
             i += 1

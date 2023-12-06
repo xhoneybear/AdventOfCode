@@ -5,8 +5,7 @@ def run(data):
     power = 0
 
     for i, line in enumerate(data):
-        line = line.split(":")[1]
-        line = line.split(";")
+        line = line.split(":")[1].split(";")
 
         rgb_min = [0, 0, 0]
         impossible = False
