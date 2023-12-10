@@ -1,8 +1,5 @@
 from math import ceil
 
-def to_int(n):
-    return int(n)
-
 def find_bound(mid, bound, off, beat):
     if bound * (mid - bound) > beat:
         if (bound - 1) * (mid - bound + 1) < beat:
@@ -12,8 +9,8 @@ def find_bound(mid, bound, off, beat):
         return find_bound(mid, bound + off, ceil(off / 2), beat)
 
 def run(data):
-    times = list(map(to_int, data[0].split(":")[1].split()))
-    distances = list(map(to_int, data[1].split(":")[1].split()))
+    times = list(map(int, data[0].split(":")[1].split()))
+    distances = list(map(int, data[1].split(":")[1].split()))
     offsets = [0, 0, 0, 0]
 
     for i, time in enumerate(times):
