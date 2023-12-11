@@ -64,11 +64,6 @@ def run(data):
         data[start[0]] = temp
     print(f"Part 1: {moves//2 + moves % 2}")
 
-    fill = {
-        'F': 'J',
-        'L': '7'
-    }
-
     area = 0
     y = 0
     while y < len(data):
@@ -77,15 +72,13 @@ def run(data):
         awaited = None
         while x < len(data[y]):
             if (y, x) in edge:
-                if data[y][x] == '|':
+                if data[y][x] in ('|', awaited):
+                    awaited = None
                     inside = not inside
                 elif data[y][x] == 'F':
                     awaited = 'J'
                 elif data[y][x] == 'L':
                     awaited = '7'
-                elif data[y][x] == awaited:
-                    awaited = None
-                    inside = not inside
             else:
                 area += inside
             x += 1
