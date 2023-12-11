@@ -5,7 +5,7 @@ def run(data):
 
     for y, row in enumerate(data):
         if not '#' in row:
-            rows.append(i)
+            rows.append(y)
             continue
         for x, c in enumerate(row):
             if c == '#':
