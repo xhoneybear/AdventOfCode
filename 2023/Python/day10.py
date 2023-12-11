@@ -27,24 +27,6 @@ def move(pipe, shift):
             return (-1, 0)
     raise ValueError
 
-def even_odd(x, y, path):
-    n = len(path) - 1
-    c = False
-    for i in range(n + 1):
-        if (x == path[i][0]) and (y == path[i][1]):
-            return False
-        elif (path[i][1] > y) != (path[n][1] > y):
-            slope = (x - path[i][0]) * \
-                (path[n][1] - path[i][1]) - \
-                (path[n][0] - path[i][0]) * \
-                (y - path[i][1])
-            if slope == 0:
-                return False
-            if (slope < 0) != (path[n][1] < path[i][1]):
-                c = not c
-        n = i
-    return c
-
 def run(data):
     for i, line in enumerate(data):
         if 'S' in line:
@@ -82,12 +64,30 @@ def run(data):
         data[start[0]] = temp
     print(f"Part 1: {moves//2 + moves % 2}")
 
+    fill = {
+        'F': 'J',
+        'L': '7'
+    }
+
     area = 0
     y = 0
     while y < len(data):
         x = 0
+        inside = False
+        awaited = None
         while x < len(data[y]):
-            area += even_odd(x, y, edge)
+            if (y, x) in edge:
+                if data[y][x] == '|':
+                    inside = not inside
+                elif data[y][x] == 'F':
+                    awaited = 'J'
+                elif data[y][x] == 'L':
+                    awaited = '7'
+                elif data[y][x] == awaited:
+                    awaited = None
+                    inside = not inside
+            else:
+                area += inside
             x += 1
         y += 1
     print(f"Part 2: {area}")
