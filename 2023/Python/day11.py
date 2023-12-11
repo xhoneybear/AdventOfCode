@@ -17,8 +17,8 @@ def run(data):
     short = long = 0
     for k, galaxy in enumerate(galaxies):
         for n in range(k + 1, len(galaxies)):
-            y = (min(galaxies[n][0], galaxy[0]), max(galaxies[n][0], galaxy[0]))
-            x = (min(galaxies[n][1], galaxy[1]), max(galaxies[n][1], galaxy[1]))
+            y = sorted((galaxies[n][0], galaxy[0]))
+            x = sorted((galaxies[n][1], galaxy[1]))
 
             short += y[1] - y[0] + x[1] - x[0]
             short += sum(1 for e in cols if e in range(y[0], y[1]))
