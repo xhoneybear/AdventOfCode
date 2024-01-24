@@ -1,7 +1,6 @@
 def parse(data):
     seeds = data[0].split(": ")[1].split()
-    for i, seed in enumerate(seeds):
-        seeds[i] = int(seed)
+    seeds = list(map(int, seeds))
 
     maps = []
     i = -1

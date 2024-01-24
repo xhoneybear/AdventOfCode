@@ -25,7 +25,7 @@ public class App {
             case "2" -> new Day2(data).run();
             // case "3" -> new Day3(data).run();
             // case "4" -> new Day4(data).run();
-            // case "5" -> new Day5(data).run();
+            case "5" -> new Day5(data).run();
             // case "6" -> new Day6(data).run();
             // case "7" -> new Day7(data).run();
             // case "8" -> new Day8(data).run();
